@@ -1,0 +1,9 @@
+{
+	"name": "labdwh",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "3d08a8cf-7159-4b2d-a8f9-32dfb4743dd7",
+		"tenantId": "2f173612-6f45-4520-9df8-32d7ba5f2c44"
+	}
+}
