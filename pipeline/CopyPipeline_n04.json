@@ -1,0 +1,699 @@
+{
+	"name": "CopyPipeline_n04",
+	"properties": {
+		"activities": [
+			{
+				"name": "ForEach_n04",
+				"type": "ForEach",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.cw_items",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Copy_n04",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [
+								{
+									"name": "Source",
+									"value": "@{item().source.schema}.@{item().source.table}"
+								},
+								{
+									"name": "Destination",
+									"value": "rawdata//@{item().destination.fileName}"
+								}
+							],
+							"typeProperties": {
+								"source": {
+									"type": "AzureSqlSource",
+									"partitionOption": "None"
+								},
+								"sink": {
+									"type": "ParquetSink",
+									"storeSettings": {
+										"type": "AzureBlobStorageWriteSettings"
+									},
+									"formatSettings": {
+										"type": "ParquetWriteSettings"
+									}
+								},
+								"enableStaging": false,
+								"validateDataConsistency": false
+							},
+							"inputs": [
+								{
+									"referenceName": "SourceDataset_n04",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_schema": "@item().source.schema",
+										"cw_table": "@item().source.table"
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "DestinationDataset_n04",
+									"type": "DatasetReference",
+									"parameters": {
+										"cw_fileName": "@item().destination.fileName"
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"parameters": {
+			"cw_items": {
+				"type": "Array",
+				"defaultValue": [
+					{
+						"source": {
+							"schema": "HumanResources",
+							"table": "Department"
+						},
+						"destination": {
+							"fileName": "HumanResourcesDepartment.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "HumanResources",
+							"table": "Employee"
+						},
+						"destination": {
+							"fileName": "HumanResourcesEmployee.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "HumanResources",
+							"table": "EmployeeDepartmentHistory"
+						},
+						"destination": {
+							"fileName": "HumanResourcesEmployeeDepartmentHistory.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "HumanResources",
+							"table": "EmployeePayHistory"
+						},
+						"destination": {
+							"fileName": "HumanResourcesEmployeePayHistory.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "HumanResources",
+							"table": "JobCandidate"
+						},
+						"destination": {
+							"fileName": "HumanResourcesJobCandidate.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "HumanResources",
+							"table": "Shift"
+						},
+						"destination": {
+							"fileName": "HumanResourcesShift.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "Address"
+						},
+						"destination": {
+							"fileName": "PersonAddress.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "AddressType"
+						},
+						"destination": {
+							"fileName": "PersonAddressType.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "BusinessEntity"
+						},
+						"destination": {
+							"fileName": "PersonBusinessEntity.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "BusinessEntityAddress"
+						},
+						"destination": {
+							"fileName": "PersonBusinessEntityAddress.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "BusinessEntityContact"
+						},
+						"destination": {
+							"fileName": "PersonBusinessEntityContact.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "ContactType"
+						},
+						"destination": {
+							"fileName": "PersonContactType.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "CountryRegion"
+						},
+						"destination": {
+							"fileName": "PersonCountryRegion.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "EmailAddress"
+						},
+						"destination": {
+							"fileName": "PersonEmailAddress.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "Password"
+						},
+						"destination": {
+							"fileName": "PersonPassword.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "Person"
+						},
+						"destination": {
+							"fileName": "PersonPerson.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "PersonPhone"
+						},
+						"destination": {
+							"fileName": "PersonPersonPhone.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "PhoneNumberType"
+						},
+						"destination": {
+							"fileName": "PersonPhoneNumberType.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Person",
+							"table": "StateProvince"
+						},
+						"destination": {
+							"fileName": "PersonStateProvince.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "BillOfMaterials"
+						},
+						"destination": {
+							"fileName": "ProductionBillOfMaterials.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "Culture"
+						},
+						"destination": {
+							"fileName": "ProductionCulture.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "Document"
+						},
+						"destination": {
+							"fileName": "ProductionDocument.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "Illustration"
+						},
+						"destination": {
+							"fileName": "ProductionIllustration.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "Location"
+						},
+						"destination": {
+							"fileName": "ProductionLocation.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "Product"
+						},
+						"destination": {
+							"fileName": "ProductionProduct.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductCategory"
+						},
+						"destination": {
+							"fileName": "ProductionProductCategory.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductCostHistory"
+						},
+						"destination": {
+							"fileName": "ProductionProductCostHistory.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductDescription"
+						},
+						"destination": {
+							"fileName": "ProductionProductDescription.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductDocument"
+						},
+						"destination": {
+							"fileName": "ProductionProductDocument.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductInventory"
+						},
+						"destination": {
+							"fileName": "ProductionProductInventory.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductListPriceHistory"
+						},
+						"destination": {
+							"fileName": "ProductionProductListPriceHistory.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductModel"
+						},
+						"destination": {
+							"fileName": "ProductionProductModel.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductModelIllustration"
+						},
+						"destination": {
+							"fileName": "ProductionProductModelIllustration.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductModelProductDescriptionCulture"
+						},
+						"destination": {
+							"fileName": "ProductionProductModelProductDescriptionCulture.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductPhoto"
+						},
+						"destination": {
+							"fileName": "ProductionProductPhoto.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductProductPhoto"
+						},
+						"destination": {
+							"fileName": "ProductionProductProductPhoto.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductReview"
+						},
+						"destination": {
+							"fileName": "ProductionProductReview.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ProductSubcategory"
+						},
+						"destination": {
+							"fileName": "ProductionProductSubcategory.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "ScrapReason"
+						},
+						"destination": {
+							"fileName": "ProductionScrapReason.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "TransactionHistory"
+						},
+						"destination": {
+							"fileName": "ProductionTransactionHistory.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "TransactionHistoryArchive"
+						},
+						"destination": {
+							"fileName": "ProductionTransactionHistoryArchive.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "UnitMeasure"
+						},
+						"destination": {
+							"fileName": "ProductionUnitMeasure.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "WorkOrder"
+						},
+						"destination": {
+							"fileName": "ProductionWorkOrder.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Production",
+							"table": "WorkOrderRouting"
+						},
+						"destination": {
+							"fileName": "ProductionWorkOrderRouting.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Purchasing",
+							"table": "ProductVendor"
+						},
+						"destination": {
+							"fileName": "PurchasingProductVendor.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Purchasing",
+							"table": "PurchaseOrderDetail"
+						},
+						"destination": {
+							"fileName": "PurchasingPurchaseOrderDetail.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Purchasing",
+							"table": "PurchaseOrderHeader"
+						},
+						"destination": {
+							"fileName": "PurchasingPurchaseOrderHeader.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Purchasing",
+							"table": "ShipMethod"
+						},
+						"destination": {
+							"fileName": "PurchasingShipMethod.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Purchasing",
+							"table": "Vendor"
+						},
+						"destination": {
+							"fileName": "PurchasingVendor.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "CountryRegionCurrency"
+						},
+						"destination": {
+							"fileName": "SalesCountryRegionCurrency.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "CreditCard"
+						},
+						"destination": {
+							"fileName": "SalesCreditCard.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "Currency"
+						},
+						"destination": {
+							"fileName": "SalesCurrency.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "CurrencyRate"
+						},
+						"destination": {
+							"fileName": "SalesCurrencyRate.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "Customer"
+						},
+						"destination": {
+							"fileName": "SalesCustomer.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "PersonCreditCard"
+						},
+						"destination": {
+							"fileName": "SalesPersonCreditCard.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "SalesOrderDetail"
+						},
+						"destination": {
+							"fileName": "SalesSalesOrderDetail.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "SalesOrderHeader"
+						},
+						"destination": {
+							"fileName": "SalesSalesOrderHeader.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "SalesOrderHeaderSalesReason"
+						},
+						"destination": {
+							"fileName": "SalesSalesOrderHeaderSalesReason.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "SalesPerson"
+						},
+						"destination": {
+							"fileName": "SalesSalesPerson.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "SalesPersonQuotaHistory"
+						},
+						"destination": {
+							"fileName": "SalesSalesPersonQuotaHistory.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "SalesReason"
+						},
+						"destination": {
+							"fileName": "SalesSalesReason.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "SalesTaxRate"
+						},
+						"destination": {
+							"fileName": "SalesSalesTaxRate.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "SalesTerritory"
+						},
+						"destination": {
+							"fileName": "SalesSalesTerritory.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "SalesTerritoryHistory"
+						},
+						"destination": {
+							"fileName": "SalesSalesTerritoryHistory.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "ShoppingCartItem"
+						},
+						"destination": {
+							"fileName": "SalesShoppingCartItem.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "SpecialOffer"
+						},
+						"destination": {
+							"fileName": "SalesSpecialOffer.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "SpecialOfferProduct"
+						},
+						"destination": {
+							"fileName": "SalesSpecialOfferProduct.txt"
+						}
+					},
+					{
+						"source": {
+							"schema": "Sales",
+							"table": "Store"
+						},
+						"destination": {
+							"fileName": "SalesStore.txt"
+						}
+					}
+				]
+			}
+		},
+		"annotations": []
+	}
+}
