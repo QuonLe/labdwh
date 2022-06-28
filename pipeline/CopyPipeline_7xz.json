@@ -73,6 +73,19 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Transfer_rawdata",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Transfer_rawdata",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
 			}
 		],
 		"parameters": {
