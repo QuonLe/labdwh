@@ -148,6 +148,7 @@
 						"     validateSchema: false,",
 						"     format: 'delta',",
 						"     container: 'rawdata',",
+						"     folderPath: 'HumanResources.Department',",
 						"     overwrite:true,",
 						"     mergeSchema: false,",
 						"     autoCompact: false,",
